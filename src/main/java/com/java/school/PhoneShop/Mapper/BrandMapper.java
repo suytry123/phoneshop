@@ -1,7 +1,6 @@
 package com.java.school.PhoneShop.Mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import com.java.school.PhoneShop.Dto.BrandDTO;
@@ -14,5 +13,5 @@ public interface BrandMapper {
 	
 	Brand toBrand(BrandDTO dto);
 	
-	Brand toBrandDTO(Brand brand);
+	BrandDTO toBrandDTO(Brand brand);
 }
