@@ -21,10 +21,15 @@ import com.java.school.PhoneShop.Service.Util.PageUtil;
 import com.java.school.PhoneShop.Specification.BrandFilter;
 import com.java.school.PhoneShop.Specification.BrandSpec;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class BrandServiceImpl implements BrandService{
     @Autowired
-    private BrandRepository brandRepository;
+    private final BrandRepository brandRepository;
     
     @Override
     public Brand create(Brand brand) {
