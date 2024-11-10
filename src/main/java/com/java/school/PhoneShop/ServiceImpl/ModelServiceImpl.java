@@ -12,11 +12,20 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class ModelServiceImpl implements ModelService{
 	private final ModelRepository modelRepository;
+//	private final ModelEntityMapper modelMapper;
 //	private BrandService brandService;
+	
+	
+//	@Override
+//	public Model save(ModelDTO dto) {
+////		Integer brandId = model.getBrand().getId();
+////		brandService.getById(brandId);
+//		Model model = modelMapper.toModel(dto);
+//		return modelRepository.save(model);
+//	}
+	
 	@Override
 	public Model save(Model model) {
-//		Integer brandId = model.getBrand().getId();
-//		brandService.getById(brandId);
 		return modelRepository.save(model);
 	}
 

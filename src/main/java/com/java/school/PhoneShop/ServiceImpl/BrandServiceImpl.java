@@ -10,7 +10,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.java.school.PhoneShop.Entity.Brand;
@@ -21,8 +21,6 @@ import com.java.school.PhoneShop.Service.Util.PageUtil;
 import com.java.school.PhoneShop.Specification.BrandFilter;
 import com.java.school.PhoneShop.Specification.BrandSpec;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Service

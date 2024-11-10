@@ -22,7 +22,7 @@ import com.java.school.PhoneShop.Mapper.BrandMapper;
 import com.java.school.PhoneShop.Service.BrandService;
 
 @RestController
-@RequestMapping("brands")
+@RequestMapping("/brands")
 
 public class BrandController {
     @Autowired
