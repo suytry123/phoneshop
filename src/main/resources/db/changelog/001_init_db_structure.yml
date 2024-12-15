@@ -127,7 +127,7 @@ databaseChangeLog:
             name: product_id
             type: BIGINT
         - column:
-            name: sold_date
+            name: sold_amount
             type: DECIMAL
           constraints:
             - foreignKeyName: fk_saleDetails_sales

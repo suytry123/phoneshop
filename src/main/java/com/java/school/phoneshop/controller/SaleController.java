@@ -1,54 +1,31 @@
 
 package com.java.school.phoneshop.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.java.school.phoneshop.dto.PriceDTO;
-import com.java.school.phoneshop.dto.ProductDTO;
-import com.java.school.phoneshop.dto.ProductImportDTO;
-import com.java.school.phoneshop.entity.Product;
-import com.java.school.phoneshop.mapper.ProductMapper;
-import com.java.school.phoneshop.service.ProductService;
+import com.java.school.phoneshop.dto.SaleDTO;
+import com.java.school.phoneshop.service.SaleService;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("products")
-public class ProductController {
+@RequestMapping("sales")
+public class SaleController {
     
-    private final ProductService productService;
-    private final ProductMapper productMapper;
+    private final SaleService saleService;
     
     // Handler
-    @RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> create(@RequestBody ProductDTO productDTO ) {
-		Product product = productMapper.toProduct(productDTO);
-		product = productService.create(product);
-
-		return ResponseEntity.ok(product);
-	}
-    
-    @PostMapping("importProduct")
-	public ResponseEntity<?> importProduct(@RequestBody @Valid ProductImportDTO importDTO){
-		productService.importProduct(importDTO);
+    @PostMapping
+	public ResponseEntity<?> create(@RequestBody SaleDTO saleDTO ) {
+    	saleService.sell(saleDTO);
 		return ResponseEntity.ok().build();
 	}
     
-    @PostMapping("{productId}/setSalePrice")
-    public ResponseEntity<?> setSalePrice(@PathVariable Long productId, @RequestBody PriceDTO priceDTO){
-    	productService.setSalePrice(productId, priceDTO.getPrice());
-		return ResponseEntity.ok().build();
-
-    }
     
     
     
