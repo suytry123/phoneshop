@@ -14,6 +14,7 @@ import com.java.school.phoneshop.entity.Product;
 import com.java.school.phoneshop.entity.Sale;
 import com.java.school.phoneshop.entity.SaleDetail;
 import com.java.school.phoneshop.exception.ApiException;
+import com.java.school.phoneshop.exception.ResourceNotFoundException;
 import com.java.school.phoneshop.repository.ProductRepository;
 import com.java.school.phoneshop.repository.SaleDetailRepository;
 import com.java.school.phoneshop.repository.SaleRepository;
@@ -124,6 +125,37 @@ public class SaleServiceImpl implements SaleService{
 					throw new ApiException(HttpStatus.BAD_REQUEST, "Product [%s] is not enough product in stock".formatted(product.getName()));
 				}
 			});
+	}
+
+	@Override
+	public void cancelSale(Long saleId) {
+		// update sale status
+		Sale sale = getById(saleId);
+		sale.setActive(false);
+		saleRepository.save(sale);
+		
+		// update stock
+		List<SaleDetail> saleDetails = saleDetailRepository.findBySaleId(saleId);
+		
+		List<Long> productIds = saleDetails.stream()
+		.map(sd -> sd.getProduct().getId())
+		.toList();
+		
+		 List<Product> products = productRepository.findAllById(productIds);
+		 Map<Long, Product> productMap = products.stream()
+						  .collect(Collectors.toMap(Product::getId, Function.identity()));
+		
+		saleDetails.forEach(sd ->{
+			Product product = productMap.get(sd.getProduct().getId());
+			product.setAvailableUnit(product.getAvailableUnit() + sd.getUnit());
+			productRepository.save(product);
+		});
+		
+	}
+
+	@Override
+	public Sale getById(Long saleId) {
+		return saleRepository.findById(saleId).orElseThrow(() -> new ResourceNotFoundException("Sale", saleId));
 	}
 
 }

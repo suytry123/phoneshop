@@ -1,39 +1,37 @@
 
 package com.java.school.phoneshop.controller;
 
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.java.school.phoneshop.dto.SaleDTO;
-import com.java.school.phoneshop.service.SaleService;
+import com.java.school.phoneshop.projection.ProductSold;
+import com.java.school.phoneshop.service.ReportService;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("sales")
-public class SaleController {
+@RequestMapping("reports")
+public class ReportController {
     
-    private final SaleService saleService;
+    private final ReportService reportService;
     
     // Handler
-    @PostMapping
-	public ResponseEntity<?> create(@RequestBody SaleDTO saleDTO ) {
-    	saleService.sell(saleDTO);
-		return ResponseEntity.ok().build();
+    @GetMapping("{startDate}/{endDate}")
+    public ResponseEntity<?> productSold(@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("startDate") LocalDate startDate,
+    		@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("endDate") LocalDate endDate) {
+    	List<ProductSold> productSolds = reportService.getProductSold(startDate, endDate);
+		return ResponseEntity.ok(productSolds);
 	}
     
     
-    @PutMapping("{saleId}/cancel")
-    public ResponseEntity<?> cancelSale(@PathVariable Long saleId){
-    	saleService.cancelSale(saleId);
-    	return ResponseEntity.ok().build();
-    }
     
     
     
