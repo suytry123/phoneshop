@@ -3,6 +3,7 @@ package com.java.school.phoneshop.service.impl;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -68,9 +69,14 @@ public class ReportServiceImpl implements ReportService{
 			List<SaleDetail> sdList = entry.getValue();
 
 			//total unit
-			Integer unit = sdList.stream().map(SaleDetail::getUnit)
-				.reduce(0, (a,b) -> a+b);
-			/*
+//			Integer unit = sdList.stream().map(SaleDetail::getUnit)
+//				.reduce(0, (a,b) -> a+b);
+			
+			int unit = sdList.stream()
+					.mapToInt(sd -> sd.getUnit())
+					.sum();
+			
+			 /* 
 			 Integer integer = sdList.stream().map(SaleDetail::getUnit)
 					.reduce((a,b) -> a+b)
 					.get();
@@ -138,6 +144,8 @@ public class ReportServiceImpl implements ReportService{
 			expenseReportDTO.setTotalAmount(BigDecimal.valueOf(totalAmount));
 			expenseReportDTOs.add(expenseReportDTO);
 		}
+		Collections.sort(expenseReportDTOs, (a,b) -> (int)(a.getProductId() - b.getProductId()));
+		
 		return expenseReportDTOs;
 	}
 
