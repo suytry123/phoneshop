@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.java.school.phoneshop.dto.ProductReportDTO;
+import com.java.school.phoneshop.dto.report.ExpenseReportDTO;
 import com.java.school.phoneshop.projection.ProductSold;
 import com.java.school.phoneshop.service.ReportService;
 
@@ -34,6 +35,13 @@ public class ReportController {
 			@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("endDate") LocalDate endDate) {
 		List<ProductReportDTO> productSolds = reportService.getProductReport(startDate, endDate);
 		return ResponseEntity.ok(productSolds);
+	}
+
+	@GetMapping("expense/{startDate}/{endDate}")
+	public ResponseEntity<?> expenseReport(@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("startDate") LocalDate startDate, 
+			@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("endDate") LocalDate endDate) {
+		List<ExpenseReportDTO> expenseReportDTOs = reportService.getExtenseReport(startDate, endDate);
+		return ResponseEntity.ok(expenseReportDTOs);
 	}
 
 
