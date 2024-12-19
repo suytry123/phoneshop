@@ -11,25 +11,35 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.java.school.phoneshop.dto.ProductReportDTO;
 import com.java.school.phoneshop.projection.ProductSold;
 import com.java.school.phoneshop.service.ReportService;
 
 import lombok.RequiredArgsConstructor;
-
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("reports")
 public class ReportController {
-    
-    private final ReportService reportService;
-    
-    // Handler
-    @GetMapping("{startDate}/{endDate}")
-    public ResponseEntity<?> productSold(@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("startDate") LocalDate startDate,
-    		@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("endDate") LocalDate endDate) {
-    	List<ProductSold> productSolds = reportService.getProductSold(startDate, endDate);
+	private final ReportService reportService;
+	
+	@GetMapping("{startDate}/{endDate}")
+	public ResponseEntity<?> productSold(@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("startDate") LocalDate startDate, 
+			@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("endDate") LocalDate endDate) {
+		List<ProductSold> productSolds = reportService.getProductSold(startDate, endDate);
 		return ResponseEntity.ok(productSolds);
 	}
+
+	@GetMapping("v2/{startDate}/{endDate}")
+	public ResponseEntity<?> productSoldV2(@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("startDate") LocalDate startDate, 
+			@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("endDate") LocalDate endDate) {
+		List<ProductReportDTO> productSolds = reportService.getProductReport(startDate, endDate);
+		return ResponseEntity.ok(productSolds);
+	}
+
+
+
+
+
     
     
     
