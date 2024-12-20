@@ -10,7 +10,8 @@ import com.java.school.phoneshop.entity.ProductImportHistory;
 import com.java.school.phoneshop.service.ColorService;
 import com.java.school.phoneshop.service.ModelService;
 
-@Mapper(componentModel = "spring", uses = { ModelService.class, ColorService.class })
+@Mapper(componentModel = "spring", 
+	uses = {ModelService.class, ColorService.class})
 public interface ProductMapper {
 	@Mapping(target = "model", source = "modelId")
 	@Mapping(target = "color", source = "colorId")
@@ -21,5 +22,6 @@ public interface ProductMapper {
 	@Mapping(target = "product", source = "product")
 	@Mapping(target = "id", ignore = true)
 	ProductImportHistory toProductImportHistory(ProductImportDTO importDTO, Product product);
+
 
 }

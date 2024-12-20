@@ -9,7 +9,6 @@ import lombok.Data;
 public class PageDTO {
 	private List<?> list;
 	private PaginationDTO pagination;
-	
 	public PageDTO(Page<?> page) {
 		this.list = page.getContent();
 		this.pagination = PaginationDTO.builder()
@@ -17,10 +16,12 @@ public class PageDTO {
 				.first(page.isFirst())
 				.last(page.isLast())
 				.pageSize(page.getPageable().getPageSize())
-				.pageNumber(page.getPageable().getPageNumber() +1)
+				.pageNumber(page.getPageable().getPageNumber())
+				.pageNumber(page.getPageable().getPageNumber()+1)
 				.totalPages(page.getTotalPages())
 				.totalElements(page.getTotalElements())
 				.numberOfElements(page.getNumberOfElements())
 				.build();
 	}
+	
 }
