@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -38,6 +39,7 @@ public class BrandController {
     private final ModelEntityMapper modelMapper;
     
     // Handler
+    @PreAuthorize("hasAuthority('brand:write')")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> create(@RequestBody BrandDTO brandDTO){
 //        Brand brand = Mapper.toBrand(brandDTO);
@@ -67,6 +69,7 @@ public class BrandController {
     	return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDTO(updatedBrand));
     }
     
+    @PreAuthorize("hasAuthority('brand:read')")
     @GetMapping
     public ResponseEntity<?> getBrands(@RequestParam Map<String, String> params){
     	
