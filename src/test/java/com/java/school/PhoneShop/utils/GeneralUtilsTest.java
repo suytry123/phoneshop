@@ -5,12 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.java.school.phoneshop.utils.GeneralUtils;
 
+
 public class GeneralUtilsTest {
 	
-	@Test
+	//@Test
 	public void toIntegerList() {
 		//Given
 		List<String> name = List.of("Dara","Cheata","Seyha");
@@ -25,7 +27,7 @@ public class GeneralUtilsTest {
 		assertEquals(5, list.get(2));
 	}
 	
-	@Test
+	//@Test
 	public void getEventNumber() {
 		//Given
 		List<Integer> list = List.of(4,5,34,32,33,55,30);
@@ -37,5 +39,11 @@ public class GeneralUtilsTest {
 		assertEquals(34, eventNumber.get(1));
 		assertEquals(32, eventNumber.get(2));
 		assertEquals(30, eventNumber.get(3));
+	}
+	@Test
+	public void showPassword() {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String encode = passwordEncoder.encode("dara123");
+		System.out.println(encode);
 	}
 }

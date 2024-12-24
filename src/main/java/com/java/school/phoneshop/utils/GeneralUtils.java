@@ -20,4 +20,5 @@ public class GeneralUtils {
 		return list.stream().filter(s -> s%2 == 0).collect(Collectors.toList());
 		
 	}
+
 }

@@ -135,3 +135,44 @@ databaseChangeLog:
               constraints:
                 - foreignKeyName: fk_saleDetails_products
                   references: products(product_id)
+    - createTable:
+         tableName: users
+         columns:
+         - column:
+             autoIncrement: true
+             constraints:
+               primaryKey: true
+             name: id
+             type: BIGINT
+         - column:
+             name: firstname
+             type: VARCHAR(255)
+         - column:
+             name: lastname
+             type: VARCHAR(255)
+         - column:
+             name: username
+             type: VARCHAR(255)
+         - column:
+             name: password
+             type: VARCHAR(255)
+         - column:
+             name: role
+             type: VARCHAR(255)
+         - column:
+             name: accountNonExpired
+             type: BOOLEAN
+         - column:
+             name: accountNonLocked
+             type: BOOLEAN
+         - column:
+             name: credentialsNonExpired
+             type: BOOLEAN
+         - column:
+             name: enabled
+             type: BOOLEAN
+- dropTable tableName: saleDetails
+- dropTable tableName: productImportHistories
+- dropColumn:
+  table: users
+  columnName: accountNonExpired
