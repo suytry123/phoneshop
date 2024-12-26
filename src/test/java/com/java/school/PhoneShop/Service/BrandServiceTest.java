@@ -11,6 +11,8 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -19,10 +21,14 @@ import com.java.school.phoneshop.exception.ResourceNotFoundException;
 import com.java.school.phoneshop.repository.BrandRepository;
 import com.java.school.phoneshop.service.BrandService;
 import com.java.school.phoneshop.service.impl.BrandServiceImpl;
+
 @ExtendWith(MockitoExtension.class)
 public class BrandServiceTest {
 	@Mock
 	private BrandRepository brandRepository;
+	
+	@Captor
+	private ArgumentCaptor<Brand> brandCaptor;
 	
 	private BrandService brandService;
 	
@@ -91,5 +97,24 @@ public class BrandServiceTest {
 		//.hasMessageEndingWith("not found");
 		//then
 		
+	}
+	
+	@Test
+	public void testUpdate() {
+		// given
+		Brand brandInDB = new Brand(1L, "Apple");
+		Brand brand = new Brand(1L, "Apple 2");
+		// brand(1,"Apple")
+		//when
+		when(brandRepository.findById(1L)).thenReturn(Optional.ofNullable(brandInDB));
+		//when(brandRepository.save(any(Brand.class))).thenReturn(brand);
+		Brand brandAfterUpdate = brandService.update(1L, brand);
+
+		//then
+		verify(brandRepository, times(1)).findById(1L);
+		//assertEquals("Apple 2U", brandAfterUpdate.getName());
+		verify(brandRepository).save(brandCaptor.capture());
+		assertEquals("Apple 2", brandCaptor.getValue().getName());
+		assertEquals(1L, brandCaptor.getValue().getId());
 	}
 }
