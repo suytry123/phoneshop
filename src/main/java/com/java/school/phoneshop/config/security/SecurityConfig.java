@@ -4,7 +4,6 @@ package com.java.school.phoneshop.config.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -22,10 +21,10 @@ import com.java.school.phoneshop.config.jwt.JwtLoginFilter;
 import com.java.school.phoneshop.config.jwt.TokenVerifyFilter;
 
 @Configuration
-@EnableGlobalMethodSecurity(
-		  prePostEnabled = true, 
-		  securedEnabled = true, 
-		  jsr250Enabled = true)
+//@EnableGlobalMethodSecurity(
+//		  prePostEnabled = true, 
+//		  securedEnabled = true, 
+//		  jsr250Enabled = true)
 public class SecurityConfig {
 	
 	@Autowired
@@ -47,7 +46,7 @@ public class SecurityConfig {
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
 			.authorizeHttpRequests()
-			.antMatchers("/","index.html","css/**","js/**").permitAll()
+			.antMatchers("/","index.html","/brands","css/**","js/**").permitAll()
 			//.antMatchers(HttpMethod.PUT, "/brands/**").hasAuthority(PermissionEnum.BRAND_WRITE.getDescription())
 			//.antMatchers(HttpMethod.PUT, "/brands/**").has(PermissionEnum.BRAND_WRITE.getDescription())
 			.anyRequest()

@@ -28,10 +28,12 @@ import com.java.school.phoneshop.service.BrandService;
 import com.java.school.phoneshop.service.ModelService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("brands")
+@Slf4j
 public class BrandController {
     
     private final BrandService brandService;
@@ -39,9 +41,10 @@ public class BrandController {
     private final ModelEntityMapper modelMapper;
     
     // Handler
-    @PreAuthorize("hasAuthority('brand:write')")
+//    @PreAuthorize("hasAuthority('brand:write')")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> create(@RequestBody BrandDTO brandDTO){
+    	log.info("Create Brand");
 //        Brand brand = Mapper.toBrand(brandDTO);
     	Brand brand = BrandMapper.INSTANCE.toBrand(brandDTO);
     	
@@ -59,7 +62,7 @@ public class BrandController {
     	return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDTO(brand));
     }
     
-    @PreAuthorize("hasAuthority('brand:write')")
+//    @PreAuthorize("hasAuthority('brand:write')")
     @PutMapping("{id}")
     public ResponseEntity<?> update(@PathVariable("id") Long brandId, @RequestBody BrandDTO brandDTO){
 //    	Brand brand = Mapper.toBrand(brandDTO);
@@ -70,7 +73,7 @@ public class BrandController {
     	return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDTO(updatedBrand));
     }
     
-    @PreAuthorize("hasAuthority('brand:read')")
+//    @PreAuthorize("hasAuthority('brand:read')")
     @GetMapping
     public ResponseEntity<?> getBrands(@RequestParam Map<String, String> params){
     	
