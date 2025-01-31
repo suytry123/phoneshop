@@ -15,4 +15,3 @@ databaseChangeLog:
         file: db/data/002_brands.csv
 -  addUniqueConstraint:
    tableName: brands 
-   

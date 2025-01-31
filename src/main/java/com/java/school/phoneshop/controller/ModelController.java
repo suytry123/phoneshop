@@ -33,7 +33,7 @@ public class ModelController {
 //	}
 	
 	//@PostMapping
-	@RolesAllowed("ROLE_ADMIN")
+	//@RolesAllowed("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> create(@RequestBody ModelDTO modelDTO){
 		Model model = modelMapper.toModel(modelDTO);
